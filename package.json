@@ -1,8 +1,13 @@
 {
+  "scripts": {
+    "dev": "node_modules/.bin/webpack && node_modules/.bin/electron dist"
+  },
   "dependencies": {
-    "electron": "^1.7.11"
+    "electron": "^1.7.11",
+    "preact": "^8.2.7"
   },
   "devDependencies": {
+    "html-webpack-plugin": "^2.30.1",
     "ts-loader": "^3.3.1",
     "typescript": "^2.6.2",
     "webpack": "^3.10.0"

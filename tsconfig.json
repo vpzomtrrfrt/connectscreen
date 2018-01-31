@@ -1,4 +1,6 @@
 {
-	"jsx": "react",
-	"jsxFactory": "preact.h"
+	"compilerOptions": {
+		"jsx": "react",
+		"jsxFactory": "preact.h"
+	}
 }
