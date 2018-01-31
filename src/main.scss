@@ -1,0 +1,16 @@
+.mainDisplay {
+	display: flex;
+	> * {
+		flex-grow: 1;
+		flex-basis: 0;
+		text-align: center;
+		background-color: #ddd;
+		margin: 0 1em;
+		padding: 1em;
+		height: 5em;
+		border-radius: 10%;
+		&.empty {
+			visibility: hidden;
+		}
+	}
+}

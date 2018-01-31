@@ -4,6 +4,7 @@ import * as readline from 'readline';
 
 class AppState {
 	count: number | null = null;
+	values: any = null;
 }
 
 export default class App extends preact.Component<any, AppState> {
@@ -15,6 +16,14 @@ export default class App extends preact.Component<any, AppState> {
 		return <div>
 			<h1>hi</h1>
 			<h3>{state.count}</h3>
+			{state.count && <div class="mainDisplay">
+				{Array.apply(null, new Array(state.count)).map((e,i) => {
+					const value = state.values[i];
+					return <div class={value ? '' : 'empty'}>
+						{value}
+					</div>;
+				})}
+				</div>}
 		</div>;
 	}
 	componentWillMount() {
@@ -25,10 +34,12 @@ export default class App extends preact.Component<any, AppState> {
 				const data = line.substring(1);
 				if(cmd == "?") {
 					console.log("preparing for", data);
-					this.setState({count: parseInt(data)});
+					this.setState({count: parseInt(data), values: {}});
 				}
 				else {
 					console.log("something else");
+					this.state.values[cmd] = data;
+					this.forceUpdate();
 				}
 			});
 		});
