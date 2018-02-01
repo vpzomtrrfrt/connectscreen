@@ -20,7 +20,7 @@ export default class App extends preact.Component<any, AppState> {
 				{Array.apply(null, new Array(state.count)).map((e,i) => {
 					const value = state.values[i];
 					return <div class={value ? '' : 'empty'}>
-						{value}
+						<div>{value}</div>
 					</div>;
 				})}
 				</div>}
