@@ -14,8 +14,6 @@ export default class App extends preact.Component<any, AppState> {
 	}
 	render(props, state) {
 		return <div>
-			<h1>hi</h1>
-			<h3>{state.count}</h3>
 			{state.count && <div class="mainDisplay">
 				{Array.apply(null, new Array(state.count)).map((e,i) => {
 					const value = state.values[i];
