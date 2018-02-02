@@ -3,8 +3,8 @@ import * as net from 'net';
 import * as readline from 'readline';
 
 class AppState {
-	count: number | null = null;
-	values: any = null;
+	counts: number[] | null = null;
+	values: any[] = null;
 }
 
 export default class App extends preact.Component<any, AppState> {
@@ -14,14 +14,17 @@ export default class App extends preact.Component<any, AppState> {
 	}
 	render(props, state) {
 		return <div>
-			{state.count && <div class="mainDisplay">
-				{Array.apply(null, new Array(state.count)).map((e,i) => {
-					const value = state.values[i];
-					return <div class={value ? '' : 'empty'}>
-						<div>{value}</div>
-					</div>;
-				})}
-				</div>}
+			{state.counts && <div>
+				{state.counts.map((count, index) => <div class="mainDisplay">
+					{Array.apply(null, new Array(count)).map((e,i) => {
+						const value = state.values[index][i];
+						return <div class={value ? '' : 'empty'}>
+							<div>{value}</div>
+							</div>;
+					})}
+					</div>)}
+				</div>
+			}
 		</div>;
 	}
 	componentWillMount() {
@@ -32,11 +35,19 @@ export default class App extends preact.Component<any, AppState> {
 				const data = line.substring(1);
 				if(cmd == "?") {
 					console.log("preparing for", data);
-					this.setState({count: parseInt(data), values: {}});
+					const counts = data.split("?").map(x => parseInt(x));
+					this.setState({counts, values: counts.map(_ => ({}))});
+				}
+				else if(cmd == "!") {
+					const i1 = parseInt(data[0]);
+					const i2 = parseInt(data[1]);
+					const msg = data.substring(2);
+					this.state.values[i1][i2] = msg;
+					this.forceUpdate();
 				}
 				else {
 					console.log("something else");
-					this.state.values[cmd] = data;
+					this.state.values[0][cmd] = data;
 					this.forceUpdate();
 				}
 			});
